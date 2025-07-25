@@ -7,7 +7,7 @@ K3s Practice
 - Create PV and PVC to be share as storage class
 - Create nginx deployment to use PVC
     - It should have 3 replicas
-    - Should have config map that configures nginx to use port 1234
+    - Should have config map that configures nginx to use port 8080 (instead 1234)
     - Mount nginx container to volume PVC and connect it to /usr/share/nginx/html inside nginx container
 - Check pod IP address
     - Test with curl nginx container
