@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-deploy
+  name: nginx-deploy
+  namespace: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: nginx-deploy
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        volumeMounts:
+        - name: nginx-storage
+          mountPath: /usr/share/nginx/html
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d/mysite.conf
+          subPath: mysite.conf
+      volumes:
+      - name: nginx-storage
+        persistentVolumeClaim:
+          claimName: pv-claim
+      - name: nginx-config
+        configMap:
+          name: my-config
